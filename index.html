@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>שביל ישראל · סתיו 2026 · לוח מסלולים</title>
+<style>
+:root{
+  --bg:#f4f6f8; --card:#ffffff; --ink:#1a2230; --muted:#66707e; --line:#e4e8ee;
+  --brand:#e8641c; --brand2:#f28c3c; --chip:#eef2f6; --shadow:0 2px 10px rgba(20,30,50,.07),0 10px 30px rgba(20,30,50,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0f141b;--card:#181f29;--ink:#eef2f7;--muted:#9aa6b4;--line:#28313d;--chip:#212a36;
+        --shadow:0 2px 10px rgba(0,0,0,.35),0 12px 34px rgba(0,0,0,.4);}
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:"Segoe UI",Rubik,Arial,system-ui,sans-serif;background:var(--bg);color:var(--ink);
+  line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1280px;margin:0 auto;padding:0 18px 80px}
+/* hero scrolls away; only the month nav pins (see nav.months) */
+header.top{padding:14px 0 0}
+.hero{background:linear-gradient(120deg,var(--brand),var(--brand2));color:#fff;border-radius:20px;
+  padding:22px 26px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between}
+.hero h1{margin:0;font-size:clamp(22px,3vw,34px);font-weight:800;letter-spacing:-.5px}
+.hero p{margin:4px 0 0;opacity:.92;font-size:15px}
+.stats{display:flex;gap:10px;flex-wrap:wrap}
+.stat{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25);border-radius:14px;
+  padding:8px 14px;text-align:center;min-width:90px}
+.stat b{display:block;font-size:22px;font-weight:800;line-height:1.1}
+.stat span{font-size:12px;opacity:.9}
+nav.months{position:sticky;top:0;z-index:20;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+  margin:0 0 6px;padding:10px 0;background:var(--bg);box-shadow:0 6px 12px -8px rgba(20,30,50,.25)}
+nav.months button{border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;
+  padding:7px 18px;border-radius:999px;font-size:14px;font-weight:700;box-shadow:var(--shadow);transition:.15s}
+nav.months button:hover{transform:translateY(-1px)}
+nav.months button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.msec{margin-top:26px}
+.mhead{display:flex;align-items:baseline;gap:12px;margin:0 4px 14px;
+  border-bottom:2px solid var(--line);padding-bottom:8px}
+.mhead h2{margin:0;font-size:24px;font-weight:800}
+.mhead .c{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+.rest{grid-column:1/-1;display:flex;align-items:center;gap:12px;color:var(--muted);
+  background:var(--chip);border:1px dashed var(--line);border-radius:14px;padding:10px 18px;font-weight:600;font-size:14px}
+.rest .d{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2px 10px;font-weight:800;color:var(--ink)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;overflow:hidden;position:relative}
+.card .bar{height:6px;background:hsl(var(--h) 70% 52%)}
+.card .pad{padding:16px 18px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+.crow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.date{display:flex;align-items:center;gap:8px}
+.date b{font-size:20px;font-weight:800}
+.date .dow{font-size:13px;color:var(--muted);font-weight:600}
+.region{font-size:12px;font-weight:800;color:#fff;background:hsl(var(--h) 62% 46%);
+  padding:4px 11px;border-radius:999px;white-space:nowrap}
+.title{font-size:19px;font-weight:800;letter-spacing:-.3px;margin:2px 0}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{font-size:12.5px;font-weight:700;background:var(--chip);border:1px solid var(--line);
+  border-radius:999px;padding:4px 11px;display:inline-flex;gap:5px;align-items:center}
+.chip.km{background:hsl(var(--h) 65% 95%);border-color:hsl(var(--h) 60% 82%);color:hsl(var(--h) 55% 32%)}
+@media(prefers-color-scheme:dark){.chip.km{background:hsl(var(--h) 40% 18%);border-color:hsl(var(--h) 40% 30%);color:hsl(var(--h) 70% 78%)}}
+.chip.easy{background:#e7f7ec;border-color:#b7e6c4;color:#1c7a3d}
+.chip.mid{background:#fff3e0;border-color:#f5d59c;color:#b5701a}
+.chip.hard{background:#fdeaea;border-color:#f3bcbc;color:#c0392b}
+@media(prefers-color-scheme:dark){
+ .chip.easy{background:#123322;border-color:#1e5236;color:#68d894}
+ .chip.mid{background:#3a2b12;border-color:#6a4c1c;color:#f0b45e}
+ .chip.hard{background:#3a1c1c;border-color:#6a2f2f;color:#f08a8a}}
+.detail{font-size:14.5px;color:var(--ink);opacity:.95}
+.kv{font-size:13.5px;color:var(--muted);display:flex;gap:7px;align-items:flex-start}
+.kv b{color:var(--ink);font-weight:700}
+.kv .i{flex:none;opacity:.8}
+.note{font-size:12px;font-weight:700;color:var(--brand);background:hsl(24 90% 95%);
+  border:1px solid hsl(24 80% 85%);border-radius:8px;padding:3px 9px;display:inline-block}
+@media(prefers-color-scheme:dark){.note{background:#3a2411;border-color:#66421d;color:#f2a55c}}
+.actions{display:flex;gap:8px;margin-top:auto;padding-top:8px}
+.btn{flex:1;border:none;cursor:pointer;border-radius:11px;padding:10px;font-size:14px;font-weight:800;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;transition:.15s}
+.btn.map{background:hsl(var(--h) 62% 46%);color:#fff}
+.btn.map:hover{filter:brightness(1.07)}
+.btn.gpx{background:var(--chip);color:var(--ink);border:1px solid var(--line)}
+.btn.gpx:hover{background:var(--line)}
+.btn.off{opacity:.45;cursor:not-allowed}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(10,15,25,.72);z-index:50;display:none;
+  align-items:center;justify-content:center;padding:2vh 2vw}
+.modal.show{display:flex}
+.mbox{background:var(--card);border-radius:16px;width:min(1100px,96vw);height:94vh;display:flex;flex-direction:column;
+  overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.mbar{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line)}
+.mbar h3{margin:0;font-size:17px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar a.dl{background:var(--brand);color:#fff;border-radius:10px;padding:8px 16px;font-weight:800;font-size:14px;text-decoration:none}
+.mbar a.ext{color:var(--muted);font-size:13px;font-weight:700;text-decoration:none}
+.mbar button.x{background:var(--chip);border:1px solid var(--line);color:var(--ink);border-radius:10px;
+  width:38px;height:38px;font-size:20px;cursor:pointer;font-weight:700}
+.mbox iframe{flex:1;border:0;width:100%}
+.foot{margin-top:40px;text-align:center;color:var(--muted);font-size:12.5px;line-height:1.8}
+.legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:10px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:50%}
+/* resupply block on card */
+.resup{border:1px solid var(--line);border-radius:12px;background:var(--chip);overflow:hidden}
+.resup>summary{cursor:pointer;list-style:none;padding:8px 12px;font-size:13px;font-weight:800;
+  color:#1a7a4a;display:flex;align-items:center;gap:7px;user-select:none}
+@media(prefers-color-scheme:dark){.resup>summary{color:#5fd39a}}
+.resup>summary::-webkit-details-marker{display:none}
+.resup>summary::after{content:'▾';margin-inline-start:auto;opacity:.6;transition:.2s}
+.resup[open]>summary::after{transform:rotate(180deg)}
+.store{border-top:1px solid var(--line);padding:9px 12px;font-size:12.5px}
+.store b{font-size:13.5px;font-weight:800}
+.store .h{color:var(--muted);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.store .h span{white-space:nowrap}
+.store .nt{color:var(--brand);margin-top:3px}
+.store a{color:#2b7bd6;font-weight:700;text-decoration:none}
+@media(prefers-color-scheme:dark){.store a{color:#6fb2f0}}
+/* grocery reference section */
+.gref{margin-top:44px}
+.gref h2{font-size:24px;font-weight:800;margin:0 4px 4px}
+.gref .sub{color:var(--muted);font-size:13.5px;margin:0 4px 14px;line-height:1.7}
+.gsearch{width:100%;max-width:420px;padding:11px 16px;border:1px solid var(--line);border-radius:12px;
+  background:var(--card);color:var(--ink);font-size:15px;margin:0 4px 16px;box-shadow:var(--shadow)}
+.gtable{width:100%;border-collapse:separate;border-spacing:0;font-size:13px;background:var(--card);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow)}
+.gtable th{background:var(--chip);text-align:right;padding:10px 12px;font-weight:800;font-size:12.5px;
+  position:sticky;top:57px;z-index:5;border-bottom:2px solid var(--line)}
+.gtable td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.gtable tr:last-child td{border-bottom:none}
+.gtable tr:hover td{background:hsl(210 40% 50% / .06)}
+.gtable .nm{font-weight:800;min-width:130px}
+.gtable .hrs{color:var(--muted);white-space:nowrap;font-size:12px}
+.gtable .nt{color:var(--ink);opacity:.85;font-size:12px}
+.gtable a{color:#2b7bd6;text-decoration:none;font-weight:700;white-space:nowrap}
+@media(prefers-color-scheme:dark){.gtable a{color:#6fb2f0}}
+.gseg{display:inline-block;min-width:22px;text-align:center;background:hsl(210 55% 46%);color:#fff;
+  border-radius:6px;padding:1px 6px;font-weight:800;font-size:11.5px}
+.gwrap{overflow-x:auto}
+@media(max-width:620px){.gtable .nt{display:none}}
+/* ---- mobile ---- */
+@media(max-width:640px){
+  .wrap{padding:0 12px 60px}
+  header.top{padding:10px 0 0}
+  .hero{padding:15px 16px;border-radius:16px;gap:12px}
+  .hero h1{font-size:21px}
+  .hero p{font-size:12.5px;line-height:1.45}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .stat{min-width:0;padding:7px 10px;border-radius:12px}
+  .stat b{font-size:19px}
+  .stat span{font-size:11px}
+  nav.months{gap:6px;padding:8px 0;margin-bottom:2px}
+  nav.months button{padding:6px 15px;font-size:13px}
+  .msec{margin-top:18px}
+  .mhead{margin-bottom:10px}
+  .mhead h2{font-size:20px}
+  .mhead .c{font-size:12.5px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  .card .pad{padding:14px 15px 12px;gap:9px}
+  .title{font-size:18px}
+  .date b{font-size:18px}
+  .detail{font-size:14px}
+  .region{font-size:11.5px;padding:3px 9px}
+  .gtable th{top:48px}
+  .modal{padding:0}
+  .mbox{width:100vw;height:100dvh;border-radius:0}
+  .mbar{flex-wrap:wrap;gap:8px;padding:10px 12px}
+  .mbar h3{flex:1 1 100%;font-size:15px;white-space:normal;order:-1}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div class="hero">
+    <div>
+      <h1>שביל ישראל · סתיו 2026</h1>
+      <p>לוח מסלולים יומי · הליכה בשביל ישראל (Walk About Love)</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>55</b><span>ימי מסלול</span></div>
+      <div class="stat"><b>1072.8</b><span>ק״מ סה״כ</span></div>
+      <div class="stat"><b>55</b><span>קבצי GPX</span></div>
+      <div class="stat"><b>96</b><span>נק׳ ציוד</span></div>
+    </div>
+  </div>
+</header>
+<nav class="months" id="mnav"></nav>
+<main id="app"></main>
+
+<section class="gref" id="gref">
+  <h2>🛒 נקודות ציוד והצטיידות</h2>
+  <p class="sub">רשימת מכולות/סופרים/תחנות דלק לאורך שביל ישראל (מצפון לדרום · עודכן 1.12.24). המספר = מקטע מפה.
+     חנויות בכפרים קטנים נמצאות בדרך כלל במרכז הכפר. חפשו לפי שם יישוב או יום.</p>
+  <input class="gsearch" id="gsearch" placeholder="חיפוש: שם יישוב / הערה…" oninput="renderGroc(this.value)">
+  <div class="gwrap"><table class="gtable">
+    <thead><tr><th>מקטע</th><th>שם</th><th>א׳–ה׳</th><th>שישי</th><th>שבת</th><th>טלפון</th><th>הערות</th></tr></thead>
+    <tbody id="gbody"></tbody>
+  </table></div>
+</section>
+
+<div class="foot">
+  נבנה מתוך הדף המקורי של Walk About Love · קבצי ה־GPX הורדו מ־off-road.io ונשמרים בתיקיית <code>gpx/</code> לצד קובץ זה.<br>
+  <div class="legend" id="legend"></div>
+</div>
+</div>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeM()">
+  <div class="mbox">
+    <div class="mbar">
+      <h3 id="mtitle"></h3>
+      <a class="ext" id="mext" target="_blank" rel="noopener">פתח ב־off-road ↗</a>
+      <a class="dl" id="mdl" download>⬇ הורד GPX</a>
+      <button class="x" onclick="closeM()">×</button>
+    </div>
+    <iframe id="mframe" src="about:blank" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+const DATA = [{"pid": "12787", "title": "מהחרמון לבניאס", "day": "ראשון", "date": "11/10", "len": "12", "detail": "החרמון, נחל גובתה, נווה אט\"יב, נחל חזורי, סיירת אגוז, עוקף מבצר נמרוד, בניאס, נחל סער.", "diff": "", "diffClass": "", "night": "הכנסיה בנחל סער ( ליד הבניאס)", "meet": "חניית רכבים חניון החרמון, יש להגיע עד השעה 9:00 עם ציידה ומים לדרך.", "region": "החרמון", "hue": 205, "notes": [], "isRoute": true, "month": 10, "trackId": "5753899905712128", "mapUrl": "https://off-road.io/track/5753899905712128", "gpx": "10-11_מהחרמון_לבניאס.gpx", "gpxStatus": "ok (100383b)", "groc": []}, {"pid": "12789", "title": "מהבניאס לכפר גלעדי", "day": "שני", "date": "12/10", "len": "24", "detail": "ציר הנפט, גבעת האם, נחל שניר,שדה נחמיה, עמיר, קרית שמונה, תל חי, כפר גלעדי.", "diff": "בינוני", "diffClass": "mid", "night": "כפר גלעדי.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "5519792579805184", "mapUrl": "https://off-road.io/track/5519792579805184", "gpx": "10-12_מהבניאס_לכפר_גלעדי.gpx", "gpxStatus": "ok (132324b)", "groc": [2]}, {"pid": "12791", "title": "כפר גלעדי לאלות", "day": "שלישי", "date": "13/10", "len": "22", "detail": "דרך נוף הרי נפתלי, מצפור מצוק רמים, נקיקי יפתח, נחל קדש, מצודת ישע.", "diff": "בינוני", "diffClass": "mid", "night": "חניון האלות.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "5516381617127424", "mapUrl": "https://off-road.io/track/5516381617127424", "gpx": "10-13_כפר_גלעדי_לאלות.gpx", "gpxStatus": "ok (108374b)", "groc": [6]}, {"pid": "12793", "title": "האלות לדישון", "day": "רביעי", "date": "14/10", "len": "21", "detail": "נבי ישע, קרן נפתלי,נחל דישון", "diff": "בינוני.", "diffClass": "mid", "night": "נחל דישון.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "4570085035868160", "mapUrl": "https://off-road.io/track/4570085035868160", "gpx": "10-14_האלות_לדישון.gpx", "gpxStatus": "ok (147684b)", "groc": [8]}, {"pid": "12795", "title": "מדישון לפיתול", "day": "חמישי", "date": "15/10", "len": "21.5", "detail": "נחל דישון, עין ערבות, שמורת יער ברעם,נחל צבעון, הר נריה, הר מירון, חניון הפיתול .", "diff": "בינוני", "diffClass": "mid", "night": "חניון הפיתול.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "4948735207931904", "mapUrl": "https://off-road.io/track/4948735207931904", "gpx": "10-15_מדישון_לפיתול.gpx", "gpxStatus": "ok (127048b)", "groc": [8]}, {"pid": "21098", "title": "פיתול לעין כובס", "day": "שישי", "date": "16/10", "len": "7.5", "detail": "מחניון הפיתול לעין כובס (צפת)", "diff": "בינוני", "diffClass": "mid", "night": "עין כובס ( צפת).", "meet": "", "region": "גליל עליון", "hue": 150, "notes": ["פירוט הביניים שוכפל בטעות מיום 15/10 במקור; אורך (7.5 ק״מ) ומפה/GPX נכונים."], "isRoute": true, "month": 10, "trackId": "6405762731999232", "mapUrl": "https://off-road.io/track/6405762731999232", "gpx": "10-16_פיתול_לעין_כובס.gpx", "gpxStatus": "ok (46447b)", "groc": [10]}, {"pid": "12814", "title": "צפת לכינרת", "day": "ראשון", "date": "18/10", "len": "17", "detail": "נחל עמוד עד הכינרת.", "diff": "בינוני.", "diffClass": "mid", "night": "כינרת.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "6061163254906880", "mapUrl": "https://off-road.io/track/6061163254906880", "gpx": "10-18_צפת_לכינרת.gpx", "gpxStatus": "ok (128749b)", "groc": [10, 18]}, {"pid": "12830", "title": "כינרת ליער שוויץ", "day": "שני", "date": "19/10", "len": "19", "detail": "עין נון, מגדל, טבריה, יער שוויץ.", "diff": "בינוני", "diffClass": "mid", "night": "יער שוויץ.", "meet": "", "region": "גליל עליון", "hue": 150, "notes": [], "isRoute": true, "month": 10, "trackId": "5247154367496192", "mapUrl": "https://off-road.io/track/5247154367496192", "gpx": "10-19_כינרת_ליער_שוויץ.gpx", "gpxStatus": "ok (83609b)", "groc": [11, 12, 18]}, {"pid": "12836", "title": "מיער שוויץ ליבניאל", "day": "שלישי", "date": "20/10", "len": "16", "detail": "הירדנית, שמורת טבע חורשת יעלה, יבניאל, פוריה.", "diff": "בינוני", "diffClass": "mid", "night": "עין סאני", "meet": "", "region": "גליל תחתון", "hue": 95, "notes": [], "isRoute": true, "month": 10, "trackId": "6721927488471040", "mapUrl": "https://off-road.io/track/6721927488471040", "gpx": "10-20_מיער_שוויץ_ליבניאל.gpx", "gpxStatus": "ok (91842b)", "groc": []}, {"pid": "18889", "title": "יבניאל לנחל תבור", "day": "רביעי", "date": "21/10", "len": "16", "detail": "עין סאני, מצפה אלות (\"החללית\") , עין אולם, תל רכש, נחל תבור.", "diff": "בינוני", "diffClass": "mid", "night": "נחל תבור", "meet": "", "region": "גליל תחתון", "hue": 95, "notes": [], "isRoute": true, "month": 10, "trackId": "6391007237636096", "mapUrl": "https://off-road.io/track/6391007237636096", "gpx": "10-21_יבניאל_לנחל_תבור.gpx", "gpxStatus": "ok (107985b)", "groc": []}, {"pid": "12842", "title": "מנחל תבור להר דבורה", "day": "חמישי", "date": "22/10", "len": "18", "detail": "נחל תבור, הר תבור (כנסייה פרנציסקנית קתולית), יער נצרת, הר דבורה.", "diff": "בינוני", "diffClass": "mid", "night": "ביום זה לא לנים בחניון הלילה", "meet": "", "region": "גליל תחתון", "hue": 95, "notes": [], "isRoute": true, "month": 10, "trackId": "6327524232003584", "mapUrl": "https://off-road.io/track/6327524232003584", "gpx": "10-22_מנחל_תבור_להר_דבורה.gpx", "gpxStatus": "ok (114075b)", "groc": []}, {"pid": "21099", "title": "", "day": "שישי", "date": "23/10", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 10, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "12844", "title": "הר דבורה לאלון הגליל", "day": "ראשון", "date": "25/10", "len": "20", "detail": "הר דבורה, הר יונה, משהאד, יער ציפורי,נחל יפתחאל, אלון הגליל", "diff": "בינוני", "diffClass": "mid", "night": "אלון הגליל", "meet": "", "region": "גליל תחתון", "hue": 95, "notes": [], "isRoute": true, "month": 10, "trackId": "4990669725106176", "mapUrl": "https://off-road.io/track/4990669725106176", "gpx": "10-25_הר_דבורה_לאלון_הגליל.gpx", "gpxStatus": "ok (77794b)", "groc": [26]}, {"pid": "12840", "title": "אלון הגליל לחסידים", "day": "שני", "date": "26/10", "len": "18.5", "detail": "נחל ציפורי, עין יבקע, כפר חסידים", "diff": "בינוני", "diffClass": "mid", "night": "כפר חסידים.", "meet": "", "region": "גליל תחתון", "hue": 95, "notes": [], "isRoute": true, "month": 10, "trackId": "6436994358444032", "mapUrl": "https://off-road.io/track/6436994358444032", "gpx": "10-26_אלון_הגליל_לחסידים.gpx", "gpxStatus": "ok (127298b)", "groc": [26, 30]}, {"pid": "12848", "title": "כפר חסידים לרקית", "day": "שלישי", "date": "27/10", "len": "16", "detail": "נחל קישון, יגור, נחל סבך,עוספיה., נחל חיק, הר שוקף, רקית.", "diff": "קל", "diffClass": "easy", "night": "רקית", "meet": "", "region": "כרמל", "hue": 50, "notes": [], "isRoute": true, "month": 10, "trackId": "5621617772986368", "mapUrl": "https://off-road.io/track/5621617772986368", "gpx": "10-27_כפר_חסידים_לרקית.gpx", "gpxStatus": "ok (78236b)", "groc": [30, 31]}, {"pid": "21255", "title": "רקית לים כרמל", "day": "רביעי", "date": "28/10", "len": "15.5", "detail": "יער הכרמל, כפר אומנים עין הוד, נחל המערות, יער עופר.", "diff": "בינוני", "diffClass": "mid", "night": "חניון ים כרמל.", "meet": "", "region": "כרמל", "hue": 50, "notes": [], "isRoute": true, "month": 10, "trackId": "4800943235792896", "mapUrl": "https://off-road.io/track/4800943235792896", "gpx": "10-28_רקית_לים_כרמל.gpx", "gpxStatus": "ok (121435b)", "groc": [32, 33]}, {"pid": "21257", "title": "ים כרמל לזכרון", "day": "חמישי", "date": "29/10", "len": "17", "detail": "יער הכרמל,מערת הפעמון, זכרון יעקוב", "diff": "בינוני", "diffClass": "mid", "night": "זכרון יעקוב- גן ירון.", "meet": "", "region": "כרמל", "hue": 50, "notes": [], "isRoute": true, "month": 10, "trackId": "6008922886897664", "mapUrl": "https://off-road.io/track/6008922886897664", "gpx": "10-29_ים_כרמל_לזכרון.gpx", "gpxStatus": "ok (84276b)", "groc": []}, {"pid": "12856", "title": "זכרון יעקוב לקיסריה", "day": "שישי", "date": "30/10", "len": "18", "detail": "רמת הנדיב, חורבת עקב, שמורת חוטם הכרמל, בית חנניה, ג'יסר א-רקא, קיסריה.", "diff": "בינוני", "diffClass": "mid", "night": "בירכת יער- בסוף המסלול מקיסריה הקפצה לברכת יער", "meet": "", "region": "מישור החוף", "hue": 190, "notes": [], "isRoute": true, "month": 10, "trackId": "6421712898359296", "mapUrl": "https://off-road.io/track/6421712898359296", "gpx": "10-30_זכרון_יעקוב_לקיסריה.gpx", "gpxStatus": "ok (96070b)", "groc": [35, 37]}, {"pid": "12858", "title": "קיסריה לברכת יער", "day": "ראשון", "date": "1/11", "len": "17", "detail": "חוף האקוודוקט- קיסריה, שדות ים, חוף גבעת אולגה, ברכת יער", "diff": "בינוני", "diffClass": "mid", "night": "בסוף המסלול הקפצה לבירכת יער.", "meet": "", "region": "מישור החוף", "hue": 190, "notes": [], "isRoute": true, "month": 11, "trackId": "4765520533913600", "mapUrl": "https://off-road.io/track/4765520533913600", "gpx": "11-01_קיסריה_לברכת_יער.gpx", "gpxStatus": "ok (79372b)", "groc": [37, 38, 39]}, {"pid": "21085", "title": "ברכת יער לפולג", "day": "שני", "date": "2/11", "len": "23", "detail": "שמורת ברכת יער, נחל אלכסנדר, חוף בית ינאי, חוף צוקי ים, שמורת האירוסים, נתניה, פארק נתניה, פולג.", "diff": "בינוני", "diffClass": "mid", "night": "פולג.", "meet": "", "region": "מישור החוף", "hue": 190, "notes": [], "isRoute": true, "month": 11, "trackId": "6382794665885696", "mapUrl": "https://off-road.io/track/6382794665885696", "gpx": "11-02_ברכת_יער_לפולג.gpx", "gpxStatus": "ok (52152b)", "groc": [41, 42, 43]}, {"pid": "20331", "title": "פולג לחוף הצוק", "day": "שלישי", "date": "3/11", "len": "21", "detail": "שמורת פולג, חוף געש, חוף הסירה,סידני עלי, חוף השרון, חוף הצוק", "diff": "בינוני", "diffClass": "mid", "night": "חוף הצוק.", "meet": "", "region": "מישור החוף", "hue": 190, "notes": [], "isRoute": true, "month": 11, "trackId": "5467510030204928", "mapUrl": "https://off-road.io/track/5467510030204928", "gpx": "11-03_פולג_לחוף_הצוק.gpx", "gpxStatus": "ok (84188b)", "groc": []}, {"pid": "21049", "title": "ת\"א לאבו רבאח", "day": "רביעי", "date": "4/11", "len": "25.7", "detail": "מחוף הצוק (ת״א) לאבו רבאח", "diff": "בינוני", "diffClass": "mid", "night": "אבו רבאח", "meet": "", "region": "מישור החוף", "hue": 190, "notes": ["אורך מ‑GPX (25.7 ק״מ); פירוט ביניים חסר במקור (שוכפל בטעות מיום 3/11). מפה/GPX נכונים."], "isRoute": true, "month": 11, "trackId": "6092565630156800", "mapUrl": "https://off-road.io/track/6092565630156800", "gpx": "11-04_תא_לאבו_רבאח.gpx", "gpxStatus": "ok (109669b)", "groc": []}, {"pid": "21051", "title": "אבו רבאח לגבעת כוח", "day": "חמישי", "date": "5/11", "len": "19", "detail": "נחל הירקון, כפר הבטיסטים, גן לאומי תל אפק, יער קולה, גבעת כוח.", "diff": "בינוני", "diffClass": "mid", "night": "ביום זה לא נשארים בחניון.", "meet": "", "region": "שפלה", "hue": 30, "notes": [], "isRoute": true, "month": 11, "trackId": "6210486440296448", "mapUrl": "https://off-road.io/track/6210486440296448", "gpx": "11-05_אבו_רבאח_לגבעת_כוח.gpx", "gpxStatus": "ok (80515b)", "groc": []}, {"pid": "21102", "title": "", "day": "שישי", "date": "6/11", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 11, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "21053", "title": "גבעת כוח ליער מודיעין", "day": "ראשון", "date": "8/11", "len": "21", "detail": "ברקת, יער שוהם, יער בן שמן,יער מודיעין.", "diff": "בינוני", "diffClass": "mid", "night": "מצפה משה שעיה.", "meet": "", "region": "שפלה", "hue": 30, "notes": [], "isRoute": true, "month": 11, "trackId": "5164537560694784", "mapUrl": "https://off-road.io/track/5164537560694784", "gpx": "11-08_גבעת_כוח_ליער_מודיעין.gpx", "gpxStatus": "ok (99683b)", "groc": [50, 53]}, {"pid": "21283", "title": "מודיעין למח\"ל", "day": "שני", "date": "9/11", "len": "19", "detail": "לטרון, דרך בורמה, אנדרטת מח\"ל", "diff": "בינוני", "diffClass": "mid", "night": "אנדרטת מח\"ל", "meet": "", "region": "הרי ירושלים", "hue": 270, "notes": [], "isRoute": true, "month": 11, "trackId": "5984742808223744", "mapUrl": "https://off-road.io/track/5984742808223744", "gpx": "11-09_מודיעין_למחל.gpx", "gpxStatus": "ok (91182b)", "groc": [53, 56]}, {"pid": "21285", "title": "אנדרטת מח\"ל לצובה", "day": "שלישי", "date": "10/11", "len": "21", "detail": "שלוחת השיירות, נחל כסלון, עין לימון,צובה.", "diff": "בינוני", "diffClass": "mid", "night": "צובה", "meet": "", "region": "הרי ירושלים", "hue": 270, "notes": [], "isRoute": true, "month": 11, "trackId": "6446141548265472", "mapUrl": "https://off-road.io/track/6446141548265472", "gpx": "11-10_אנדרטת_מחל_לצובה.gpx", "gpxStatus": "ok (141037b)", "groc": [60]}, {"pid": "21056", "title": "צובה לחורבת סעדים", "day": "רביעי", "date": "11/11", "len": "17", "detail": "סטף, עין סטף, נחל שורק, עין איתמר, יער עמינדב", "diff": "בינוני", "diffClass": "mid", "night": "חורבת סעדים.", "meet": "", "region": "הרי ירושלים", "hue": 270, "notes": [], "isRoute": true, "month": 11, "trackId": "6593457450123264", "mapUrl": "https://off-road.io/track/6593457450123264", "gpx": "11-11_צובה_לחורבת_סעדים.gpx", "gpxStatus": "ok (120865b)", "groc": [60]}, {"pid": "12877", "title": "סעדים לנתיב הל\"ה", "day": "חמישי", "date": "12/11", "len": "23", "detail": "עין קובי, יער ביתר, יער מטע, נתיב הל\"ה", "diff": "בינוני", "diffClass": "mid", "night": "נתיב הל\"ה", "meet": "", "region": "הרי ירושלים", "hue": 270, "notes": [], "isRoute": true, "month": 11, "trackId": "5446832044376064", "mapUrl": "https://off-road.io/track/5446832044376064", "gpx": "11-12_סעדים_לנתיב_הלה.gpx", "gpxStatus": "ok (103461b)", "groc": [65, 66]}, {"pid": "21103", "title": "", "day": "שישי", "date": "13/11", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 11, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "12879", "title": "נתיבל\"ה לג'וברין", "day": "ראשון", "date": "15/11", "len": "25", "detail": "תל שכה, חורבת שקלון, לי- און, חורבת עקבה, מצפה משואה, בית ג'וברין", "diff": "מטיבי לכת", "diffClass": "hard", "night": "בית ג'וברין", "meet": "", "region": "שפלת יהודה", "hue": 330, "notes": [], "isRoute": true, "month": 11, "trackId": "5467634718474240", "mapUrl": "https://off-road.io/track/5467634718474240", "gpx": "11-15_נתיבלה_לגוברין.gpx", "gpxStatus": "ok (136735b)", "groc": []}, {"pid": "12881", "title": "בית ג'וברין לתל קשת", "day": "שני", "date": "16/11", "len": "23", "detail": "נחל מראשה, תל לכיש, נחל אדוריים, תל קשת", "diff": "בינוני", "diffClass": "mid", "night": "תל קשת", "meet": "", "region": "שפלת יהודה", "hue": 330, "notes": [], "isRoute": true, "month": 11, "trackId": "5612392900198400", "mapUrl": "https://off-road.io/track/5612392900198400", "gpx": "11-16_בית_גוברין_לתל_קשת.gpx", "gpxStatus": "ok (80541b)", "groc": [70]}, {"pid": "12883", "title": "תל קשת ליער דבירה", "day": "שלישי", "date": "17/11", "len": "27", "detail": "שמורת פורה, נחל סד, נחל שקמה, גשר טורכי, יער דבירה", "diff": "מטיבי לכת", "diffClass": "hard", "night": "יער דבירה", "meet": "", "region": "שפלת יהודה", "hue": 330, "notes": [], "isRoute": true, "month": 11, "trackId": "4732754137186304", "mapUrl": "https://off-road.io/track/4732754137186304", "gpx": "11-17_תל_קשת_ליער_דבירה.gpx", "gpxStatus": "ok (120915b)", "groc": []}, {"pid": "12885", "title": "יער דבירה למיתר", "day": "רביעי", "date": "18/11", "len": "17", "detail": "יער דבירה, מערת הדקל,להב, סנסנה, יער מיתר", "diff": "בינוני", "diffClass": "mid", "night": "יער מיתר", "meet": "", "region": "צפון הנגב", "hue": 15, "notes": [], "isRoute": true, "month": 11, "trackId": "5931570106466304", "mapUrl": "https://off-road.io/track/5931570106466304", "gpx": "11-18_יער_דבירה_למיתר.gpx", "gpxStatus": "ok (83138b)", "groc": [77]}, {"pid": "12887", "title": "מיתר להר עמשא", "day": "חמישי", "date": "19/11", "len": "23", "detail": "יער מיתר, הר חירן, יער יתיר, הר עמשא.", "diff": "מטיבי לכת", "diffClass": "hard", "night": "הר עמשא", "meet": "", "region": "הרי יהודה והנגב", "hue": 310, "notes": [], "isRoute": true, "month": 11, "trackId": "5920342726410240", "mapUrl": "https://off-road.io/track/5920342726410240", "gpx": "11-19_מיתר_להר_עמשא.gpx", "gpxStatus": "ok (118021b) reused-track", "groc": [77]}, {"pid": "12889", "title": "הר עמשא לערד", "day": "שישי", "date": "20/11", "len": "16.7", "detail": "הר עמשא, נחל דרגות, דריג'את, ג'נביב, תל ערד, חורשת רן.", "diff": "בינוני", "diffClass": "mid", "night": "פארק ערד ( לינת סופ\"ש במידה ונשארים 12 אנשים לסופ\"ש)", "meet": "", "region": "צפון הנגב", "hue": 15, "notes": [], "isRoute": true, "month": 11, "trackId": "5434879888588800", "mapUrl": "https://off-road.io/track/5434879888588800", "gpx": "11-20_הר_עמשא_לערד.gpx", "gpxStatus": "ok (77059b)", "groc": [78]}, {"pid": "12891", "title": "ערד לכפר הנוקדים", "day": "ראשון", "date": "22/11", "len": "15.9", "detail": "ערד, שביל הבורות, נחל דומיה, נחל רחף עליון, כפר הנוקדים", "diff": "קל", "diffClass": "easy", "night": "כפר הנוקדים", "meet": "", "region": "מדבר יהודה", "hue": 25, "notes": ["אורך עודכן ל‑15.9 ק״מ לפי מדידת ה‑GPX (במקור 12)"], "isRoute": true, "month": 11, "trackId": "6685142388572160", "mapUrl": "https://off-road.io/track/6685142388572160", "gpx": "11-22_ערד_לכפר_הנוקדים.gpx", "gpxStatus": "ok (79461b)", "groc": [78]}, {"pid": "12893", "title": "כפר הנוקדים למצדה", "day": "שני", "date": "23/11", "len": "14", "detail": "בקעת קנאים, נחל גורני,מצדה", "diff": "בינוני", "diffClass": "mid", "night": "מצדה מערב", "meet": "", "region": "ים המלח", "hue": 215, "notes": [], "isRoute": true, "month": 11, "trackId": "4974042903216128", "mapUrl": "https://off-road.io/track/4974042903216128", "gpx": "11-23_כפר_הנוקדים_למצדה.gpx", "gpxStatus": "ok (91029b)", "groc": []}, {"pid": "12895", "title": "מצדה לעין בוקק", "day": "שלישי", "date": "24/11", "len": "15", "detail": "מצדה, נחל רחף, מעלה מור, טיילת ים המלח,עין בוקק", "diff": "בינוני", "diffClass": "mid", "night": "עין בוקק", "meet": "", "region": "ים המלח", "hue": 215, "notes": [], "isRoute": true, "month": 11, "trackId": "5236237436190720", "mapUrl": "https://off-road.io/track/5236237436190720", "gpx": "11-24_מצדה_לעין_בוקק.gpx", "gpxStatus": "ok (45137b)", "groc": [79]}, {"pid": "12897", "title": "עין בוקק למישור עמיעז", "day": "רביעי", "date": "25/11", "len": "20", "detail": "עין בוקק, חמי זוהר, נחל רום, עלב לוט, נחל פרצים, מערת הקמח, קיר הצורות, מישור עמיעז.", "diff": "בינוני", "diffClass": "mid", "night": "מישור עמיעז", "meet": "", "region": "ים המלח", "hue": 215, "notes": [], "isRoute": true, "month": 11, "trackId": "4689880887590912", "mapUrl": "https://off-road.io/track/4689880887590912", "gpx": "11-25_עין_בוקק_למישור_עמיעז.gpx", "gpxStatus": "ok (86250b)", "groc": []}, {"pid": "12899", "title": "עמיעז לנחל תמר", "day": "חמישי", "date": "26/11", "len": "20", "detail": "מצפה צורים, גבי פרס, נחל תמר", "diff": "בינוני", "diffClass": "mid", "night": "נחל תמר- הלינה בסופ\"ש מותנה בכך שישארו לסופ\"ש 12 משתתפים", "meet": "", "region": "ים המלח", "hue": 215, "notes": [], "isRoute": true, "month": 11, "trackId": "6279321998589952", "mapUrl": "https://off-road.io/track/6279321998589952", "gpx": "11-26_עמיעז_לנחל_תמר.gpx", "gpxStatus": "ok (90537b)", "groc": []}, {"pid": "21059", "title": "נחל תמר", "day": "שישי", "date": "27/11", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 11, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "12905", "title": "נחל תמר למכתש", "day": "ראשון", "date": "29/11", "len": "24.7", "detail": "מצפה עורץ, נחל מזר, מצפור חצרה, חולות צבעוניים, מעלה עלי, ראש מעלה עלי, מצפור המכתש הקטן.", "diff": "מיטיבי לכת (ישנו מסלול קצת יותר של 18 ק\"מ מפה מצורפת בקישור למטה)", "diffClass": "hard", "night": "מצפה המכתש", "meet": "", "region": "הר הנגב", "hue": 42, "notes": ["אורך עודכן ל‑24.7 ק״מ לפי מדידת ה‑GPX (במקור 20)"], "isRoute": true, "month": 11, "trackId": "5944831086428160", "mapUrl": "https://off-road.io/track/5944831086428160", "gpx": "11-29_נחל_תמר_למכתש.gpx", "gpxStatus": "ok (123182b)", "groc": []}, {"pid": "12908", "title": "מכתש למפעלי אורון", "day": "שני", "date": "30/11", "len": "20", "detail": "נחל עקרבים, מצד ספיר, מעלה ימין, נחל חתירה, עין יורקעם, הסנפיר הגדול, מפעלי אורון", "diff": "מיטיבי לכת", "diffClass": "hard", "night": "מפעיל אורון", "meet": "", "region": "מכתשים", "hue": 300, "notes": [], "isRoute": true, "month": 11, "trackId": "4514501280399360", "mapUrl": "https://off-road.io/track/4514501280399360", "gpx": "11-30_מכתש_למפעלי_אורון.gpx", "gpxStatus": "ok (131715b)", "groc": []}, {"pid": "12910", "title": "אורון לנחל מדור", "day": "שלישי", "date": "1/12", "len": "20", "detail": "הר כרבולת, נחל מדור", "diff": "מיטיבי לכת", "diffClass": "hard", "night": "נחל מדור", "meet": "", "region": "מכתשים", "hue": 300, "notes": [], "isRoute": true, "month": 12, "trackId": "6720350245617664", "mapUrl": "https://off-road.io/track/6720350245617664", "gpx": "12-01_אורון_לנחל_מדור.gpx", "gpxStatus": "ok (137356b)", "groc": []}, {"pid": "12912", "title": "נחל מדור לסרפנטינות", "day": "רביעי", "date": "2/12", "len": "23.8", "detail": "חוד עקב, עין עקב, סרפנטינות", "diff": "מיטיבי לכת", "diffClass": "hard", "night": "סרפנטינטת", "meet": "", "region": "מכתשים", "hue": 300, "notes": [], "isRoute": true, "month": 12, "trackId": "4520255999705088", "mapUrl": "https://off-road.io/track/4520255999705088", "gpx": "12-02_נחל_מדור_לסרפנטינות.gpx", "gpxStatus": "ok (117103b)", "groc": []}, {"pid": "12914", "title": "סרפנטינות לנחל חווה", "day": "חמישי", "date": "3/12", "len": "17", "detail": "עין עקב, בקית צין, נחל חווה", "diff": "בינוני", "diffClass": "mid", "night": "נחל חווה", "meet": "", "region": "מכתשים", "hue": 300, "notes": [], "isRoute": true, "month": 12, "trackId": "5897041002102784", "mapUrl": "https://off-road.io/track/5897041002102784", "gpx": "12-03_סרפנטינות_לנחל_חווה.gpx", "gpxStatus": "ok (83389b)", "groc": []}, {"pid": "12916", "title": "נחל חווה למצפה רמון", "day": "שישי", "date": "4/12", "len": "30", "detail": "נחל חווה למצפה רמון 30 ק\"מ ניתן לבחור במסלול מקוצר", "diff": "מטיבי לכת", "diffClass": "hard", "night": "מצפה רמון", "meet": "", "region": "מכתשים", "hue": 300, "notes": [], "isRoute": true, "month": 12, "trackId": "5490790086737920", "mapUrl": "https://off-road.io/track/5490790086737920", "gpx": "12-04_נחל_חווה_למצפה_רמון.gpx", "gpxStatus": "ok (134317b)", "groc": [85, 86]}, {"pid": "21293", "title": "נר ראשון של חנוכה", "day": "שבת", "date": "5/12", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 12, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "21294", "title": "חגיגת חנוכה", "day": "שבת", "date": "5/12", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 12, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}, {"pid": "12918", "title": "מצפה רמון לנחל גוונים", "day": "ראשון", "date": "6/12", "len": "20", "detail": "הר גמל, מכתש רמון, שן רמון, נחל גוונים", "diff": "בינוני", "diffClass": "mid", "night": "נחל גוונים", "meet": "", "region": "מכתש רמון", "hue": 285, "notes": [], "isRoute": true, "month": 12, "trackId": "6410947646717952", "mapUrl": "https://off-road.io/track/6410947646717952", "gpx": "12-06_מצפה_רמון_לנחל_גוונים.gpx", "gpxStatus": "ok (111947b)", "groc": [85, 86]}, {"pid": "12920", "title": "נחל גוונים לגב חולית", "day": "שני", "date": "7/12", "len": "18", "detail": "הר סהרוים, גב פרסת נקרות, כרבולת חררים, גב חולית", "diff": "בינוני", "diffClass": "mid", "night": "גב חולית", "meet": "", "region": "מזרח הרמון", "hue": 255, "notes": [], "isRoute": true, "month": 12, "trackId": "5154738432114688", "mapUrl": "https://off-road.io/track/5154738432114688", "gpx": "12-07_נחל_גוונים_לגב_חולית.gpx", "gpxStatus": "ok (146708b)", "groc": []}, {"pid": "12923", "title": "גב חולית לאגם ספיר", "day": "שלישי", "date": "8/12", "len": "19", "detail": "הר יהב, נחל צבירה, מצפור אשבורן, סדקים, פארק ספיר", "diff": "בינוני", "diffClass": "mid", "night": "פארק ספיר", "meet": "", "region": "ערבה", "hue": 40, "notes": [], "isRoute": true, "month": 12, "trackId": "5519247776677888", "mapUrl": "https://off-road.io/track/5519247776677888", "gpx": "12-08_גב_חולית_לאגם_ספיר.gpx", "gpxStatus": "ok (100914b)", "groc": [87]}, {"pid": "12925", "title": "ספיר לנחל ברק", "day": "רביעי", "date": "9/12", "len": "30", "detail": "מואה העיר הנבטית, נחל עשוש, מעלה עשוש, מעלה צופר", "diff": "מטיבי לכת", "diffClass": "hard", "night": "נחל ברק", "meet": "", "region": "ערבה", "hue": 40, "notes": [], "isRoute": true, "month": 12, "trackId": "6633200661561344", "mapUrl": "https://off-road.io/track/6633200661561344", "gpx": "12-09_ספיר_לנחל_ברק.gpx", "gpxStatus": "ok (152619b)", "groc": [87, 88]}, {"pid": "12927", "title": "נחל ברק לצחור פארן", "day": "חמישי", "date": "10/12", "len": "24", "detail": "נחל ברק, נחל ורדית, נחל פארן", "diff": "בינוני", "diffClass": "mid", "night": "מפגש נחלים צחור פארן", "meet": "", "region": "ערבה", "hue": 40, "notes": [], "isRoute": true, "month": 12, "trackId": "4932298787520512", "mapUrl": "https://off-road.io/track/4932298787520512", "gpx": "12-10_נחל_ברק_לצחור_פארן.gpx", "gpxStatus": "ok (178789b)", "groc": [90]}, {"pid": "12929", "title": "צחור פארן לשיזפון", "day": "שישי", "date": "11/12", "len": "20", "detail": "מצחור פארן לשיזפון ומשיזפון לשחרות 20 ק\"מ שימו לב ביום זה אנו מארגנים הקפצה של 30 ק\"מ מנחל צחור (כביש 40) לפונדק נאות סמדר זהו קטע שבו שביל ישראל עובר ליד כביש ושטחי אש.", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "ערבה", "hue": 40, "notes": [], "isRoute": true, "month": 12, "trackId": "4712759789355008", "mapUrl": "https://off-road.io/track/4712759789355008", "gpx": "12-11_צחור_פארן_לשיזפון.gpx", "gpxStatus": "ok (90234b)", "groc": [90, 91]}, {"pid": "12931", "title": "שחרות לעמק ססגון", "day": "ראשון", "date": "13/12", "len": "26", "detail": "גב עשרון, צוקי תימנע, עמק ססגון", "diff": "מטיבי לכת", "diffClass": "hard", "night": "עמק ססגון", "meet": "", "region": "הרי אילת", "hue": 0, "notes": [], "isRoute": true, "month": 12, "trackId": "6115393029013504", "mapUrl": "https://off-road.io/track/6115393029013504", "gpx": "12-13_שחרות_לעמק_ססגון.gpx", "gpxStatus": "ok (231108b)", "groc": []}, {"pid": "12933", "title": "ססגון לבאר אורה", "day": "שני", "date": "14/12", "len": "16", "detail": "גבעת ססגון, פארק תימנע, באר אורה", "diff": "בינוני", "diffClass": "mid", "night": "באר אורה", "meet": "", "region": "הרי אילת", "hue": 0, "notes": [], "isRoute": true, "month": 12, "trackId": "5088780216696832", "mapUrl": "https://off-road.io/track/5088780216696832", "gpx": "12-14_ססגון_לבאר_אורה.gpx", "gpxStatus": "ok (152684b)", "groc": [94]}, {"pid": "12935", "title": "באר אורה לשחורת", "day": "שלישי", "date": "15/12", "len": "17", "detail": "הר אורה, גבי רחם,עמודי עמרם,הר אמיר, שחורת", "diff": "בינוני", "diffClass": "mid", "night": "שחורת", "meet": "", "region": "הרי אילת", "hue": 0, "notes": [], "isRoute": true, "month": 12, "trackId": "6490946848423936", "mapUrl": "https://off-road.io/track/6490946848423936", "gpx": "12-15_באר_אורה_לשחורת.gpx", "gpxStatus": "ok (128123b)", "groc": [94]}, {"pid": "12937", "title": "שחורת להר יהורם", "day": "רביעי", "date": "16/12", "len": "12", "detail": "קניון שחורת, הר שלמה, עין נטפים,הר יהורם", "diff": "בינוני", "diffClass": "mid", "night": "הר יהורם", "meet": "", "region": "הרי אילת", "hue": 0, "notes": [], "isRoute": true, "month": 12, "trackId": "5878445387546624", "mapUrl": "https://off-road.io/track/5878445387546624", "gpx": "12-16_שחורת_להר_יהורם.gpx", "gpxStatus": "ok (107899b)", "groc": []}, {"pid": "12939", "title": "הר יהורם- אילת סיום שביל ישראל!", "day": "חמישי", "date": "17/12", "len": "13", "detail": "נחל גשרון, מצפור יהושפט, צוקי גשרון, הר צפחות ( תצפית 4 מדינות), הים האדום אילת!", "diff": "בינוני", "diffClass": "mid", "night": "ביום זה לא לנים בחניון", "meet": "", "region": "הרי אילת", "hue": 0, "notes": [], "isRoute": true, "month": 12, "trackId": "5992404090355712", "mapUrl": "https://off-road.io/track/5992404090355712", "gpx": "12-17_הר_יהורם-_אילת_סיום_שביל_ישראל.gpx", "gpxStatus": "ok (124218b)", "groc": [95]}, {"pid": "21106", "title": "", "day": "שישי", "date": "25/12", "len": "", "detail": "", "diff": "", "diffClass": "", "night": "", "meet": "", "region": "", "hue": 210, "notes": [], "isRoute": false, "month": 12, "trackId": "", "mapUrl": "", "gpx": "", "gpxStatus": "rest/no-route", "groc": []}];
+const GROC = [{"gi": 0, "id": "1", "name": "מג'דל שאמס", "seg": 1, "wk": "שבעה ימים במרכז הכפר", "fri": "", "sat": "", "phone": "", "note": ""}, {"gi": 1, "id": "2", "name": "קיבוץ דן", "seg": 3, "wk": "06:30-20:00", "fri": "06:30-16:00", "sat": "09:00-14:00", "phone": "", "note": ""}, {"gi": 2, "id": "3", "name": "קרית שמונה", "seg": 3, "wk": "20:00-06:00", "fri": "06:00-15:00", "sat": "סגור", "phone": "", "note": "סופר ספיר הכי זול. 300מ' מהשביל"}, {"gi": 3, "id": "4", "name": "גשר על נחל שניר (מתחם גן הצפון)", "seg": 3, "wk": "תחנת דלק, מק'דונלדס, מסעדה. תחנת דלק פתוחה 24/7. מקדונלד'ס 11:30-21:30/7 -", "fri": "", "sat": "", "phone": "", "note": ""}, {"gi": 4, "id": "5", "name": "Kfar Gileadi", "seg": 3, "wk": "06:30-20:00", "fri": "06:30-14:00", "sat": "סגור", "phone": "04-6946356", "note": ""}, {"gi": 5, "id": "6", "name": "משכנות הרועים", "seg": 4, "wk": "מיכל מים למטיילים", "fri": "", "sat": "", "phone": "", "note": "על השביל"}, {"gi": 6, "id": "7", "name": "יפתח", "seg": 4, "wk": "07:00-19:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "052-2817220", "note": ""}, {"gi": 7, "id": "8", "name": "רמות נפתלי", "seg": 4, "wk": "06:30-20:00", "fri": "06:30-15:00", "sat": "סגור", "phone": "04-6950122", "note": ""}, {"gi": 8, "id": "9", "name": "דישון", "seg": 5, "wk": "08:00-19:00", "fri": "08:00-14:30", "sat": "סגור", "phone": "04-6454722", "note": ""}, {"gi": 9, "id": "10", "name": "מושב מירון", "seg": 6, "wk": "08:00-19:00", "fri": "08:00-14:00", "sat": "סגור", "phone": "", "note": "יש גם תחנת דלק וחנות נוחות, פתוחה 24/6"}, {"gi": 10, "id": "11", "name": "צפת", "seg": 7, "wk": "עיר", "fri": "", "sat": "סגור", "phone": "", "note": ""}, {"gi": 11, "id": "12", "name": "מגדל", "seg": 8, "wk": "24/7", "fri": "", "sat": "", "phone": "054-6345555", "note": "מינימרקט על השביל"}, {"gi": 12, "id": "13", "name": "מינימרקט מגדל", "seg": 8, "wk": "06:00-2300", "fri": "06:00-16:00", "sat": "סגור", "phone": "04-679-1086", "note": "רחוב המייסדים, 500 מ' מהשביל"}, {"gi": 13, "id": "14", "name": "מרכז קניות גלילאו, מסעדות, תחנת דלק", "seg": 8, "wk": "08:00-21:00; תחנת הדלק 24/7", "fri": "08:00-16:00", "sat": "מרכז הקניות סגור בשבת", "phone": "", "note": "ק\"מ דרומה ממגדל על כביש 90 ליד הפניה לכביש 807"}, {"gi": 14, "id": "15", "name": "תחנת דלק - כביש 807", "seg": 8, "wk": "24/7", "fri": "", "sat": "", "phone": "", "note": "על השביל"}, {"gi": 15, "id": "16", "name": "כפר חיטים", "seg": 8, "wk": "07:00-19:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "04-6732270", "note": ""}, {"gi": 16, "id": "17", "name": "טבריה תחנת דלק פז מצפה גולן", "seg": 8, "wk": "24/7 התחנה", "fri": "", "sat": "", "phone": "", "note": "ליד כביש 77, על השביל"}, {"gi": 17, "id": "18", "name": "טבריה מינימרקט בתחנת פז", "seg": 8, "wk": "", "fri": "", "sat": "סגור", "phone": "", "note": "ק\"מ 10.6 יום 7, ק\"מ 13.5 יום 40ד"}, {"gi": 18, "id": "19", "name": "כנרת", "seg": 9, "wk": "06:00-21:00", "fri": "06:00-18:00", "sat": "סגור", "phone": "04-6752041", "note": "דרומית לכביש 767"}, {"gi": 19, "id": "20", "name": "כנרת - תמר בכפר", "seg": 9, "wk": "09:00-19:00", "fri": "09:00-18:00", "sat": "09:00-19:00", "phone": "04-6709954", "note": "דרומית לכביש 767"}, {"gi": 20, "id": "21", "name": "כנרת - מינימרקט, מאפיה, קפה", "seg": 9, "wk": "24/7", "fri": "24/7", "sat": "נסגר בין 00:00-06:00", "phone": "04-6173555", "note": "מכביש 767 פנה שמאלה (צפונה) 200 מ' על כביש 90"}, {"gi": 21, "id": "22", "name": "כפר קיש", "seg": 10, "wk": "07:00-20:00", "fri": "07:00-20:00", "sat": "08:00-20:00", "phone": "", "note": "מרכז הכפר"}, {"gi": 22, "id": "23", "name": "תחנת דלק - כביש 7276", "seg": 11, "wk": "24/7", "fri": "", "sat": "", "phone": "", "note": ""}, {"gi": 23, "id": "24", "name": "נוף הגליל", "seg": 11, "wk": "", "fri": "Day 9 @km 21.6. Day 38s @km 3. Two supermakets", "sat": "סגור", "phone": "", "note": "חנויות ברחוב מעלה יצחק, כ-750 מ' מהכביש. מקדונלד'ס, תחנות דלק, מרכז קניות"}, {"gi": 24, "id": "25", "name": "משהד", "seg": 11, "wk": "", "fri": "", "sat": "", "phone": "", "note": "חנויות מכולת ברחוב הראשי על השביל"}, {"gi": 25, "id": "26", "name": "הושעיה", "seg": 12, "wk": "07:00-13:30   16:45-20:00", "fri": "07:00-13:30", "sat": "סגור", "phone": "04-6575860", "note": ""}, {"gi": 26, "id": "27", "name": "אלון הגליל", "seg": 12, "wk": "06:30-14:00   17:00-19:00", "fri": "06:30-14:00", "sat": "סגור", "phone": "", "note": ""}, {"gi": 27, "id": "28", "name": "כעביה", "seg": 13, "wk": "08:00-22:00", "fri": "08:00-22:00", "sat": "08:00-22:00", "phone": "04-6656630", "note": "על השביל"}, {"gi": 28, "id": "29", "name": "נופית", "seg": 13, "wk": "07:30-20:00", "fri": "07:30-15:00", "sat": "סגור", "phone": "04-9930004", "note": "0.75 ק\"מ מהשביל"}, {"gi": 29, "id": "30", "name": "זובידאת", "seg": 13, "wk": "06:00-23:00", "fri": "06:00-23:00", "sat": "06:00-23:00", "phone": "04-983-0661", "note": "האני מינימרקט 500 מ' מהשביל"}, {"gi": 30, "id": "31", "name": "כפר חסידים", "seg": 14, "wk": "08:00-19:00", "fri": "08:00-13:00", "sat": "סגור", "phone": "04-9846027", "note": "על השביל"}, {"gi": 31, "id": "32", "name": "עוספיה", "seg": 14, "wk": "08:00-20:00", "fri": "08:00-16:00", "sat": "08:00-18:00", "phone": "M Hacarmel", "note": "0.5 ק\"מ מערבית לשביל על כביש 672. כפר גדול, חנויות רבות"}, {"gi": 32, "id": "33", "name": "עין הוד", "seg": 15, "wk": "07:00-14:00", "fri": "07:00-14:00", "sat": "סגור", "phone": "04-9541146", "note": "על השביל"}, {"gi": 33, "id": "34", "name": "עופר", "seg": 16, "wk": "07:00-19:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "04-8204449", "note": "מרכז היישוב כ-1 ק\"מ מהשביל"}, {"gi": 34, "id": "35", "name": "זכרון יעקב\\בנימינה", "seg": 16, "wk": "07:00-21:00", "fri": "07:00-16:00", "sat": "סגור", "phone": "054-5567556", "note": "חנות 'אייזיקס' (10to10) על השביל"}, {"gi": 35, "id": "36", "name": "בית חנניה", "seg": 17, "wk": "05:30-14:00 16:30-19:00.         סגור בשלישי בצהריים", "fri": "05:30-14:00", "sat": "סגור", "phone": "04-6360286", "note": ""}, {"gi": 36, "id": "37", "name": "ג'יסר א-זרקא", "seg": 17, "wk": "חנויות מכולת ברחוב הראשי", "fri": "", "sat": "", "phone": "", "note": "על השביל"}, {"gi": 37, "id": "38", "name": "קיסריה", "seg": 17, "wk": "07:00-20:30", "fri": "06:30-15:00", "sat": "סגור", "phone": "04-6361820", "note": "סופרמרקט פוליצר. 1 ק\"מ מהשביל"}, {"gi": 38, "id": "39", "name": "שדות ים", "seg": 17, "wk": "", "fri": "", "sat": "", "phone": "", "note": "תחנת דלק מדרום לקיבוץ ליד תחנת הכח אורות רבין. מסעדה איטלקית\\יפנית כשרה"}, {"gi": 39, "id": "40", "name": "גבעת אולגה", "seg": 18, "wk": "", "fri": "", "sat": "", "phone": "", "note": "תחנת דלק ליד הגשר על כביש 2. חנות, מקדונלד'ס."}, {"gi": 40, "id": "41", "name": "חדרה", "seg": 18, "wk": "", "fri": "על כביש 4", "sat": "סגור", "phone": "", "note": "כ-800 מ' מהשביל. לרכבת לכו מזרחה ברחוב שמחוני, למרכזי קניות - על כביש 4."}, {"gi": 41, "id": "42", "name": "בית ינאי (צומת בית ינאי)", "seg": 18, "wk": "המרכז פתוח כל ימות השבוע, שעות משתנות בהתאם לחנויות", "fri": "", "sat": "", "phone": "", "note": "קניון M הדרך, כ-600 מ' מהשביל מזרחה לכביש 2. חנות נוחות, מסעדות שונות"}, {"gi": 42, "id": "43", "name": "נתניה", "seg": 19, "wk": "", "fri": "", "sat": "", "phone": "", "note": "קניון השרון, רחוב הרצל 60, ככ-1 ק\"מ מהשביל"}, {"gi": 43, "id": "44", "name": "רמת פולג\\נתניה", "seg": 19, "wk": "08:00-21:00", "fri": "08:00-14:00", "sat": "20:00-24:00", "phone": "09-8357303", "note": "מגה בעיר - פולג"}, {"gi": 44, "id": "45", "name": "מרכז קניות שפיים", "seg": 19, "wk": "", "fri": "", "sat": "", "phone": "", "note": "1 ק\"מ מזרחה לשביל. המרכז פתוח כל ימות השבוע, שעות משתנות בהתאם לחנויות"}, {"gi": 45, "id": "46", "name": "הרצליה:", "seg": 20, "wk": "", "fri": "", "sat": "", "phone": "09-7886957", "note": "במרינה יש חנויות ומסעדות כולל  כשרות, 0730-2200 7 ימים בשבוע."}, {"gi": 46, "id": "47", "name": "נמל תל אביב", "seg": 21, "wk": "", "fri": "", "sat": "", "phone": "", "note": "פתוח כל ימות השבוע, שעות בהתאם לחנויות. יש סופרמרקט, מסעדות, מסעדות כשרות."}, {"gi": 47, "id": "48", "name": "תל אביב \\ יהודה המכבי", "seg": 21, "wk": "0700-2300", "fri": "0700-1400", "sat": "סגור", "phone": "", "note": "מגה בעיר, יהודה המכבי 46, 800 מ' מהשביל"}, {"gi": 48, "id": "49", "name": "כפר סירקין", "seg": 22, "wk": "06:00-14:00; 16:00-19:00; בשלישי סגור אחה\"צ", "fri": "06:00-14:00", "sat": "סגור", "phone": "", "note": "יש שער חשמלי בכניסה לכפר סירקין. חכו עד שמישהו יוצא או נכנס ברכב ותיכנסו."}, {"gi": 49, "id": "50", "name": "אלעד", "seg": 22, "wk": "", "fri": "", "sat": "", "phone": "", "note": "עיר חרדית. מספר סופרמרקטים בטווח ק\"מ מהשביל"}, {"gi": 50, "id": "51", "name": "תחנת דלק - שוהם", "seg": 23, "wk": "", "fri": "", "sat": "", "phone": "", "note": "200 מ' מהשביל ברחוב רימון באזור התעשיה."}, {"gi": 51, "id": "52", "name": "בית נחמיה", "seg": 23, "wk": "06:30-17:00", "fri": "06:30-15:00", "sat": "סגור", "phone": "03-9712774", "note": "מרכז היישוב. גישה רק מהצד המערבי של כביש 6"}, {"gi": 52, "id": "53", "name": "גמזו", "seg": 24, "wk": "08:30-14:00; 17:30-19:00", "fri": "08:00-14:00", "sat": "סגור", "phone": "", "note": "מרכז היישוב כ-800 מ' מהשביל"}, {"gi": 53, "id": "54", "name": "מודיעין\\ישפרו סנטר", "seg": 24, "wk": "", "fri": "", "sat": "", "phone": "", "note": "מרכז קניות. סופרמרקטים, מסעדות, בתי קפה, קולנוע"}, {"gi": 54, "id": "55", "name": "משמר איילון", "seg": 24, "wk": "06:00-20:00", "fri": "06:00-16:00", "sat": "סגור", "phone": "08-9797321", "note": "מרכז היישוב כק\"מ מערבית לשביל. בימות השבוע משעה 20:00 פתוחה מסעדת בשרים"}, {"gi": 55, "id": "56", "name": "שעלבים", "seg": 24, "wk": "07:00-21:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "054-4979018", "note": ""}, {"gi": 56, "id": "57", "name": "לטרון (צומת חטיבה 7), תחנת דלק", "seg": 25, "wk": "", "fri": "", "sat": "", "phone": "", "note": "שתי מסעדות וחנות נוחות."}, {"gi": 57, "id": "58", "name": "מסילת ציון", "seg": 25, "wk": "", "fri": "", "sat": "", "phone": "", "note": "תחנת דלק על כביש 38"}, {"gi": 58, "id": "59", "name": "מסילת ציון", "seg": 25, "wk": "06:00-14:00; 16:00-19:00", "fri": "06:00-14:00", "sat": "סגור", "phone": "", "note": "מכולת ביישוב"}, {"gi": 59, "id": "60", "name": "Beit Meir", "seg": 25, "wk": "08:00-14:00; 16:00-20:00", "fri": "08:00-15:00", "sat": "סגור", "phone": "02-6516990", "note": ""}, {"gi": 60, "id": "61", "name": "צובה", "seg": 26, "wk": "08:00-19:00", "fri": "08:00-17:00", "sat": "08:00-13:00", "phone": "", "note": ""}, {"gi": 61, "id": "62", "name": "עין כרם", "seg": 26, "wk": "07:00-17:00", "fri": "07:00-15:00", "sat": "", "phone": "", "note": ""}, {"gi": 62, "id": "63", "name": "בית חולים הדסה עין כרם", "seg": 26, "wk": "", "fri": "", "sat": "", "phone": "", "note": "מרכז קניות קטן, מסעדה (כשרה)."}, {"gi": 63, "id": "64", "name": "ירושלים, צומת אורה\\ תחנת דלק", "seg": 26, "wk": "Sun-Wed 08:00-21:00; Thu to 23:00", "fri": "08:00-16:00", "sat": "סגור", "phone": "02-6411675", "note": ""}, {"gi": 64, "id": "65", "name": "צור הדסה", "seg": 26, "wk": "07:00-21:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "Village center", "note": ""}, {"gi": 65, "id": "66", "name": "מטע", "seg": 27, "wk": "08:00-19:00", "fri": "08:00-15:00", "sat": "סגור", "phone": "", "note": ""}, {"gi": 66, "id": "67", "name": "נתיב הל\"ה", "seg": 27, "wk": "06:30-14:00; 16:00-19:00", "fri": "06:30-14:00", "sat": "סגור", "phone": "02-9900250", "note": ""}, {"gi": 67, "id": "68", "name": "שריגים-לי-און", "seg": 28, "wk": "07:30-15:00", "fri": "07:30-15:00", "sat": "סגור", "phone": "Village center", "note": ""}, {"gi": 68, "id": "69", "name": "מבשלת בירה שריגים- לי-און", "seg": 28, "wk": "", "fri": "10:30-17:00", "sat": "10:30-17:00", "phone": "073-2725313", "note": "מרכז מבקרים, גן בירה. צפוף בסופי שבוע וחגים"}, {"gi": 69, "id": "70", "name": "בית גוברין (תחנת דלק)", "seg": 29, "wk": "", "fri": "", "sat": "", "phone": "", "note": ""}, {"gi": 70, "id": "71", "name": "לכיש", "seg": 29, "wk": "06:30-19:30", "fri": "06:30-14:30", "sat": "סגור", "phone": "054-3232696", "note": ""}, {"gi": 71, "id": "72", "name": "אחוזם", "seg": 30, "wk": "07:30-13:00; 16:00-19:00", "fri": "07:30-14:00", "sat": "סגור", "phone": "050-7736333", "note": ""}, {"gi": 72, "id": "73", "name": "מרכולית בית קמה", "seg": 30, "wk": "07:00-19:00", "fri": "07:00-14:00", "sat": "10:00-13:00", "phone": "", "note": ""}, {"gi": 73, "id": "73", "name": "צומת קמה, כביש 6/40 (תחנת דלק)", "seg": 31, "wk": "", "fri": "", "sat": "", "phone": "", "note": "חנות נוחות, ארומה, מסעדות"}, {"gi": 74, "id": "74", "name": "צומת דבירה, כביש 6/40 (תחנת דלק)", "seg": 31, "wk": "", "fri": "", "sat": "", "phone": "", "note": "חנות, מסעדה, חנות קולומביה לציוד טיולים"}, {"gi": 75, "id": "75", "name": "קיבוץ דבירה", "seg": 31, "wk": "ראשון 07:30-17:00, שני-חמישי: 07:30-19", "fri": "07:30-13:30", "sat": "סגור", "phone": "", "note": ""}, {"gi": 76, "id": "76", "name": "קיבוץ להב", "seg": 32, "wk": "07:00-14:00; 16:00-19:00", "fri": "07:00-14:00", "sat": "11:30-13:30", "phone": "", "note": ""}, {"gi": 77, "id": "77", "name": "מיתר", "seg": 32, "wk": "07:00-21:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "08-6510216", "note": "1.5 ק\"מ דרומה מהשביל. להצטייד ביומיים אוכל עד ערד"}, {"gi": 78, "id": "78", "name": "ערד", "seg": 35, "wk": "", "fri": "", "sat": "", "phone": "", "note": "סופרמרקטים וחנויות קרובים לשביל. נקודת ההצטיידות הבאה - עוד כשלושה ימים, ליד ים המלח."}, {"gi": 79, "id": "79", "name": "ים המלח (עין בוקק)", "seg": 37, "wk": "08:00-23:00.", "fri": "08:00-23:00.", "sat": "08:00-23:00.", "phone": "08-658-4672", "note": "נקודת ההצטיידות הבאה בעוד יומיים."}, {"gi": 80, "id": "80", "name": "נווה זוהר (תחנת דלק)", "seg": 37, "wk": "", "fri": "", "sat": "", "phone": "", "note": "אין חנות מכולת. יש תחנת דלק 1 ק\"מ מזרחה מהשביל ליד כביש 90."}, {"gi": 81, "id": "81", "name": "עין תמר", "seg": null, "wk": "07:30-13:00 ו-17:00-20:00", "fri": "07:30-13:00", "sat": "17:00-20:00", "phone": "050-4000818", "note": "סטיה של 2.5 ק\"מ הליכה מהשביל + טרמפ."}, {"gi": 82, "id": "82", "name": "נאות הכיכר", "seg": null, "wk": "07:30-14:00 ו-17:00-21:00", "fri": "07:30-15:00", "sat": "17:00-21:00", "phone": "050-4000818", "note": "סטיה של 2.5 ק\"מ הליכה מהשביל + טרמפ."}, {"gi": 83, "id": "83", "name": "צומת הערבה", "seg": 39, "wk": "", "fri": "", "sat": "", "phone": "", "note": "תחנת דלק בצומת הערבה. סטיה של 2.5 ק\"מ הליכה מהשביל + טרמפ של חמש דקות."}, {"gi": 84, "id": "84", "name": "מדרשת בן גוריון", "seg": 44, "wk": "07:45-19:00", "fri": "07:45-14:00", "sat": "סגור", "phone": "08-6550241", "note": ""}, {"gi": 85, "id": "85", "name": "מצפה רמון", "seg": 46, "wk": "ראשון-רביעי 08:00-20:000. חמישי 08:00-21:00", "fri": "08:00-14:00", "sat": "סגור", "phone": "08-6588406", "note": "שופרסל דיל, רחוב בן גוריון 1"}, {"gi": 86, "id": "86", "name": "מצפה רמון", "seg": 46, "wk": "06:00-21:00", "fri": "06:00-15:30", "sat": "סגור", "phone": "08-6587034", "note": "סופר במדבר - מרכז חכמוב 1 (נחל ציה 1)"}, {"gi": 87, "id": "87", "name": "ספיר", "seg": 49, "wk": "08:00-13:30; 17:00-19:00 סגור בשלישי בצהריים", "fri": "08:00-13:30", "sat": "סגור", "phone": "", "note": ""}, {"gi": 88, "id": "88", "name": "צופר", "seg": 49, "wk": "08:00-13:00; 17:00-20:00; סגור בשלישי בצהריים", "fri": "08:30-14:00", "sat": "סגור", "phone": "", "note": ""}, {"gi": 89, "id": "89", "name": "צוקים", "seg": 50, "wk": "", "fri": "", "sat": "052-7202301", "phone": "", "note": "תחנת דלק ממזרח לצוקים. מסעדה. בצוקים יש מבשלת בירה ומעדניה (לא כשרה)."}, {"gi": 90, "id": "90", "name": "פארן (מרכז היישוב)", "seg": 51, "wk": "08:00-13:30; 16:30-21:00", "fri": "08:00-13:30; 16:30-21:00", "sat": "21:00-16:00", "phone": "", "note": ""}, {"gi": 91, "id": "91", "name": "פונדק נאות סמדר, צומת שיזפון", "seg": 54, "wk": "07:00-19:00", "fri": "07:00-15:00", "sat": "11:00-17:00", "phone": "", "note": "מלבד המסעדה יש כמה מוצרים, מבחר מוגבל."}, {"gi": 92, "id": "92", "name": "פארק תמנע", "seg": 57, "wk": "16:00-08:00", "fri": "16:00-08:00", "sat": "16:00-08:00", "phone": "", "note": "רכישת מוצרים (שימורים, פסטה ירקות ועוד), סנדביצ'ים, ארוחות מוכנות, מסעדה."}, {"gi": 93, "id": "93", "name": "אליפז", "seg": 57, "wk": "", "fri": "", "sat": "", "phone": "052-368-8384", "note": "ארוחות בתשלום. יש בר עם שימורים, חטיפים ומוצרים בסיסיים."}, {"gi": 94, "id": "94", "name": "באר אורה", "seg": 57, "wk": "07:00-21:00", "fri": "07:00-15:00", "sat": "סגור", "phone": "08-6719711", "note": ""}, {"gi": 95, "id": "95", "name": "אילת", "seg": 59, "wk": "", "fri": "", "sat": "", "phone": "", "note": "סוף המסע. בעיר יש הכל."}];
+const MONTHS = {10:'אוקטובר',11:'נובמבר',12:'דצמבר'};
+const app = document.getElementById('app');
+const esc = s => (s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const telHref = p => 'tel:'+(p||'').replace(/[^0-9+]/g,'');
+const isPhone = p => /\d{3}/.test(p||'');
+
+function storeRow(g){
+  const hrs=[['א׳-ה׳',g.wk],['ו׳',g.fri],['שבת',g.sat]].filter(x=>x[1])
+    .map(x=>`<span>${x[0]}: ${esc(x[1])}</span>`).join('');
+  const ph = isPhone(g.phone) ? ` · <a href="${telHref(g.phone)}">${esc(g.phone)}</a>` : '';
+  return `<div class="store"><b>${esc(g.name)}</b>${g.seg?` · מקטע ${g.seg}`:''}${ph}
+    ${hrs?`<div class="h">${hrs}</div>`:''}
+    ${g.note?`<div class="nt">ℹ️ ${esc(g.note)}</div>`:''}</div>`;
+}
+function resupBlock(p){
+  if(!p.groc||!p.groc.length) return '';
+  const stores=p.groc.map(gi=>storeRow(GROC[gi])).join('');
+  return `<details class="resup"><summary>🛒 ציוד/קניות בקרבת המסלול (${p.groc.length})</summary>${stores}</details>`;
+}
+
+function statusText(p){
+  if(p.gpx) return '';
+  const m={'no-track':'לא הוגדרה מפה ליום זה','not-gpx':'אין מסלול GPX',
+    'map-point':'המפה היא נקודת ציון בלבד — אין קובץ GPX','broken-source-link':'קישור המפה שבור באתר המקור','no-layerkey':'המפה לא זמינה להורדה'};
+  return m[p.gpxStatus]||'GPX לא זמין';
+}
+function card(p){
+  const st = statusText(p);
+  const mapBtn = p.mapUrl
+    ? `<button class="btn map" onclick='openM(${JSON.stringify(p)})'>🗺️ מפה חיה</button>`
+    : `<button class="btn map off" title="${esc(st)}">🗺️ אין מפה</button>`;
+  const gpxBtn = p.gpx
+    ? `<a class="btn gpx" href="gpx/${encodeURIComponent(p.gpx)}" download>⬇ GPX</a>`
+    : `<span class="btn gpx off" title="${esc(st)}">— GPX</span>`;
+  const notes = (p.notes||[]).map(n=>`<span class="note">${esc(n)}</span>`).join(' ');
+  return `<div class="card" style="--h:${p.hue}">
+    <div class="bar"></div>
+    <div class="pad">
+      <div class="crow">
+        <div class="date"><b>${esc(p.date)}</b><span class="dow">יום ${esc(p.day)}</span></div>
+        ${p.region?`<span class="region">${esc(p.region)}</span>`:''}
+      </div>
+      <div class="title">${esc(p.title)}</div>
+      <div class="chips">
+        ${p.len?`<span class="chip km">📏 ${esc(p.len)} ק״מ</span>`:''}
+        ${p.diff?`<span class="chip ${p.diffClass}">🥾 ${esc(p.diff)}</span>`:''}
+      </div>
+      ${p.detail?`<div class="detail">${esc(p.detail)}</div>`:''}
+      ${p.meet?`<div class="kv"><span class="i">📍</span><span><b>מפגש:</b> ${esc(p.meet)}</span></div>`:''}
+      ${p.night?`<div class="kv"><span class="i">🏕️</span><span><b>חניון לילה:</b> ${esc(p.night)}</span></div>`:''}
+      ${notes?`<div class="chips">${notes}</div>`:''}
+      ${resupBlock(p)}
+      <div class="actions">${mapBtn}${gpxBtn}</div>
+    </div></div>`;
+}
+function restRow(p){
+  const label = p.title && p.title.length>1 ? esc(p.title) : 'יום חופש / מנוחה';
+  return `<div class="rest"><span class="d">${esc(p.day?('יום '+p.day):'')} ${esc(p.date)}</span> ${label}</div>`;
+}
+
+function render(){
+  const byMonth={};
+  DATA.forEach(p=>{(byMonth[p.month]=byMonth[p.month]||[]).push(p)});
+  const order=Object.keys(byMonth).map(Number).sort((a,b)=>a-b);
+  let hMon=[];
+  app.innerHTML = order.map(m=>{
+    const list=byMonth[m];
+    const routes=list.filter(x=>x.isRoute);
+    const km=Math.round(routes.reduce((s,x)=>s+(parseFloat(x.len)||0),0));
+    hMon.push(m);
+    const cards=list.map(p=> p.isRoute ? card(p) : restRow(p)).join('');
+    return `<section class="msec" id="m${m}">
+      <div class="mhead"><h2>${MONTHS[m]||('חודש '+m)}</h2>
+        <span class="c">${routes.length} מסלולים · ${km} ק״מ</span></div>
+      <div class="grid">${cards}</div></section>`;
+  }).join('');
+  // month nav
+  document.getElementById('mnav').innerHTML = hMon.map(m=>
+    `<button data-m="${m}" onclick="jump(${m})">${MONTHS[m]||m}</button>`).join('');
+  // legend of regions present
+  const regs=[...new Set(DATA.filter(x=>x.region).map(x=>x.region+'|'+x.hue))];
+  document.getElementById('legend').innerHTML = regs.map(r=>{const[n,h]=r.split('|');
+    return `<span><i class="dot" style="background:hsl(${h} 62% 48%)"></i>${esc(n)}</span>`}).join('');
+  spy();
+}
+function jump(m){document.getElementById('m'+m).scrollIntoView({behavior:'smooth',block:'start'})}
+function spy(){
+  const secs=[...document.querySelectorAll('.msec')];
+  const btns=[...document.querySelectorAll('#mnav button')];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    const id=e.target.id.slice(1);btns.forEach(b=>b.classList.toggle('on',b.dataset.m===id));}})},
+    {rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(s=>io.observe(s));
+}
+function openM(p){
+  document.getElementById('mtitle').textContent=`${p.date} · ${p.title}`;
+  document.getElementById('mframe').src=p.mapUrl;
+  const dl=document.getElementById('mdl'), ext=document.getElementById('mext');
+  ext.href=p.mapUrl;
+  if(p.gpx){dl.style.display='';dl.href=`gpx/${encodeURIComponent(p.gpx)}`;}
+  else dl.style.display='none';
+  document.getElementById('modal').classList.add('show');
+}
+function closeM(){document.getElementById('modal').classList.remove('show');
+  document.getElementById('mframe').src='about:blank';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+function renderGroc(q){
+  q=(q||'').trim();
+  const rows=GROC.filter(g=>!q || (g.name+' '+g.note+' '+g.id).includes(q)).map(g=>{
+    const ph = isPhone(g.phone) ? `<a href="${telHref(g.phone)}">${esc(g.phone)}</a>` : '';
+    return `<tr>
+      <td>${g.seg?`<span class="gseg">${g.seg}</span>`:'—'}</td>
+      <td class="nm">${esc(g.name)}</td>
+      <td class="hrs">${esc(g.wk)||'—'}</td>
+      <td class="hrs">${esc(g.fri)||'—'}</td>
+      <td class="hrs">${esc(g.sat)||'—'}</td>
+      <td>${ph||'—'}</td>
+      <td class="nt">${esc(g.note)}</td></tr>`;
+  }).join('');
+  document.getElementById('gbody').innerHTML = rows || `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">אין תוצאות</td></tr>`;
+}
+render();
+renderGroc('');
+</script>
+</body>
+</html>

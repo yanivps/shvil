@@ -1,0 +1,8 @@
+# Ignore everything at the root level
+/*
+
+# Unignore specific files
+!.gitignore
+!schedule_view.html
+!index.html
+!gpx
