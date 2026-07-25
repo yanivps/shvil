@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx creator="Patrick Hooper" version="1.1" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd">
   <metadata>
-    <name>Activity</name>
+    <name>44 - 4/12 - נחל חווה למצפה רמון</name>
   </metadata>
   <trk>
-    <name>a</name>
+    <name>44 - 4/12 - נחל חווה למצפה רמון</name>
     <trkseg>
       <trkpt lat="30.60588890468746" lon="34.786393141899154">
         <ele>841</ele>
