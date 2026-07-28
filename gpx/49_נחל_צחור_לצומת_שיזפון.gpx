@@ -5,12 +5,9 @@
   </metadata>
   <trk>
     <name>49 - נחל צחור לצומת שיזפון</name>
-    <desc></desc>
-    <extensions>
-      <Color xmlns="">#B700FF</Color>
-      <Opacity xmlns="">0.4</Opacity>
-      <Weight xmlns="">9</Weight>
-    </extensions>
+    <desc>🏞️ ערבה
+🥾 נחל צחור, צומת שיזפון
+⛺ לילה: צומת שיזפון</desc>
     <trkseg>
       <trkpt lat="30.279007" lon="35.001285">
         <ele>252.3</ele>

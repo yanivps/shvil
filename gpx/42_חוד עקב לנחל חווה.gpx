@@ -5,12 +5,10 @@
   </metadata>
   <trk>
     <name>42 - חוד עקב לנחל חווה</name>
-    <desc></desc>
-    <extensions>
-      <Color xmlns="">#0000FF</Color>
-      <Opacity xmlns="">0.4</Opacity>
-      <Weight xmlns="">9</Weight>
-    </extensions>
+    <desc>🏞️ קושי: בינוני | מכתשים
+🥾 עין עקב, בקית צין, נחל חווה
+💦 טבילה: עין עקב, עין שביב
+⛺ לילה: נחל חווה</desc>
     <trkseg>
       <trkpt lat="30.836005" lon="34.831156">
         <ele>339</ele>
