@@ -39,8 +39,12 @@ nav.months button.on{background:var(--brand);color:#fff;border-color:var(--brand
 .controls{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:12px 4px 0;padding:12px 16px;
   background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);font-size:14px;font-weight:600}
 .controls label{display:inline-flex;align-items:center;gap:7px;cursor:pointer}
-.controls input[type=date]{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:14px}
+.controls input[type=date],.controls select{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:6px 10px;font-size:14px}
 .controls input[type=checkbox]{width:17px;height:17px;accent-color:var(--brand);cursor:pointer}
+.sat-options,.sat-range{display:inline-flex;align-items:center;gap:10px;flex-wrap:wrap}
+.sat-options{padding-inline-start:16px;border-inline-start:1px solid var(--line)}
+.sat-options[hidden],.sat-range[hidden]{display:none}
+.sat-range label{font-size:13px;color:var(--muted)}
 .msec{margin-top:26px}
 .mhead{display:flex;align-items:baseline;gap:12px;margin:0 4px 14px;
   border-bottom:2px solid var(--line);padding-bottom:8px}
@@ -50,12 +54,17 @@ nav.months button.on{background:var(--brand);color:#fff;border-color:var(--brand
 .rest{grid-column:1/-1;display:flex;align-items:center;gap:12px;color:var(--muted);
   background:var(--chip);border:1px dashed var(--line);border-radius:14px;padding:10px 18px;font-weight:600;font-size:14px}
 .rest .d{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:2px 10px;font-weight:800;color:var(--ink)}
+.day-toggle{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-family:inherit;
+  font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap;transition:.15s}
+.day-toggle:hover{transform:translateY(-1px)}
+.day-toggle.walk{background:var(--brand);border-color:var(--brand);color:#fff;margin-inline-start:auto}
+.day-toggle.rest-day{background:var(--chip);color:var(--ink)}
 .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:0;box-shadow:var(--shadow);
   display:flex;flex-direction:column;overflow:hidden;position:relative}
 .card .bar{height:6px;background:hsl(var(--h) 70% 52%)}
 .card .pad{padding:16px 18px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
 .crow{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.date{display:flex;align-items:center;gap:8px}
+.date{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .date .idx{background:hsl(var(--h) 62% 46%);color:#fff;font-weight:800;font-size:13px;
   min-width:24px;height:24px;border-radius:7px;display:inline-flex;align-items:center;justify-content:center;padding:0 6px}
 .date b{font-size:20px;font-weight:800}
@@ -155,6 +164,8 @@ nav.months button.on{background:var(--brand);color:#fff;border-color:var(--brand
   .stat{min-width:0;padding:7px 10px;border-radius:12px}
   .stat b{font-size:19px}
   .stat span{font-size:11px}
+  .controls{gap:12px}
+  .sat-options{width:100%;padding:10px 0 0;border-inline-start:0;border-top:1px solid var(--line)}
   nav.months{gap:6px;padding:8px 0;margin-bottom:2px}
   nav.months button{padding:6px 15px;font-size:13px}
   .msec{margin-top:18px}
@@ -194,7 +205,19 @@ nav.months button.on{background:var(--brand);color:#fff;border-color:var(--brand
 <div class="controls" id="controls">
   <label>תאריך התחלה <input type="date" id="startDate" value="2026-10-11" onchange="render()"></label>
   <label><input type="checkbox" id="walkFri" onchange="render()" checked> הליכה בימי שישי</label>
-  <label><input type="checkbox" id="walkSat" onchange="render()"> הליכה בימי שבת</label>
+  <label><input type="checkbox" id="walkSat" onchange="updateSaturdayControls();render()"> הליכה בימי שבת</label>
+  <div class="sat-options" id="satOptions" hidden>
+    <label>שבתות
+      <select id="satMode" onchange="updateSaturdayControls();render()">
+        <option value="all" selected>כל השבתות</option>
+        <option value="range">רק בטווח תאריכים</option>
+      </select>
+    </label>
+    <span class="sat-range" id="satRange" hidden>
+      <label>מתאריך <input type="date" id="satFrom" onchange="render()" disabled></label>
+      <label>עד תאריך <input type="date" id="satTo" onchange="render()" disabled></label>
+    </span>
+  </div>
   <label><input type="checkbox" id="dogMode" onchange="render()" checked> מעקפים לכלב 🐕</label>
 </div>
 <nav class="months" id="mnav"></nav>
@@ -259,6 +282,8 @@ function statusText(p){
 }
 function card(p){
   const st = statusText(p);
+  const dayToggle = p.scheduleIso
+    ? `<button type="button" class="day-toggle rest-day" onclick="setDayWalk('${p.scheduleIso}',false)">הפוך ליום מנוחה</button>` : '';
   const mapBtn = p.mapUrl
     ? `<button class="btn map" onclick="openM(${JSON.stringify(p).replace(/&/g,'&amp;').replace(/"/g,'&quot;')})">🗺️ מפה חיה</button>`
     : `<button class="btn map off" title="${esc(st)}">🗺️ אין מפה</button>`;
@@ -270,7 +295,7 @@ function card(p){
     <div class="bar"></div>
     <div class="pad">
       <div class="crow">
-        <div class="date">${p.idx?`<span class="idx">${p.idx}</span>`:''}<b>${esc(p.date)}</b><span class="dow">יום ${esc(p.day)}</span></div>
+        <div class="date">${p.idx?`<span class="idx">${p.idx}</span>`:''}<b>${esc(p.date)}</b><span class="dow">יום ${esc(p.day)}</span>${dayToggle}</div>
         ${p.region?`<span class="region">${esc(p.region)}</span>`:''}
       </div>
       <div class="title">${esc(p.title)}</div>
@@ -294,18 +319,83 @@ function restRow(p){
 }
 
 const HEB_DOW=['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const DAY_OVERRIDES=new Map();
+const SCHEDULE_STORAGE_KEY='shvil-israel-schedule-v1';
 function fmt(d){return d.getDate()+'/'+(d.getMonth()+1);}
+function isoDate(d){
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function updateSaturdayControls(){
+  const enabled=document.getElementById('walkSat').checked;
+  const rangeMode=document.getElementById('satMode').value==='range';
+  document.getElementById('satOptions').hidden=!enabled;
+  document.getElementById('satRange').hidden=!enabled||!rangeMode;
+  document.getElementById('satFrom').disabled=!enabled||!rangeMode;
+  document.getElementById('satTo').disabled=!enabled||!rangeMode;
+}
+function isWalkingSaturday(date,enabled,mode,from,to){
+  const current=isoDate(date);
+  if(!enabled)return false;
+  if(mode!=='range')return true;
+  return Boolean(from&&to&&from<=to&&current>=from&&current<=to);
+}
+function isWalkingDay(date,walkFri,walkSat,satMode,satFrom,satTo){
+  const current=isoDate(date);
+  if(DAY_OVERRIDES.has(current))return DAY_OVERRIDES.get(current);
+  const dow=date.getDay();
+  if(dow===5)return walkFri;
+  if(dow===6)return isWalkingSaturday(date,walkSat,satMode,satFrom,satTo);
+  return true;
+}
+function setDayWalk(dateKey,walking){
+  DAY_OVERRIDES.set(dateKey,walking);
+  render();
+}
+function saveScheduleState(){
+  const state={
+    startDate:document.getElementById('startDate').value,
+    walkFri:document.getElementById('walkFri').checked,
+    walkSat:document.getElementById('walkSat').checked,
+    satMode:document.getElementById('satMode').value,
+    satFrom:document.getElementById('satFrom').value,
+    satTo:document.getElementById('satTo').value,
+    dogMode:document.getElementById('dogMode').checked,
+    dayOverrides:[...DAY_OVERRIDES.entries()]
+  };
+  try{localStorage.setItem(SCHEDULE_STORAGE_KEY,JSON.stringify(state));}catch(e){}
+}
+function restoreScheduleState(){
+  let state;
+  try{state=JSON.parse(localStorage.getItem(SCHEDULE_STORAGE_KEY)||'null');}catch(e){return;}
+  if(!state||typeof state!=='object')return;
+  const datePattern=/^\d{4}-\d{2}-\d{2}$/;
+  if(typeof state.startDate==='string'&&datePattern.test(state.startDate))document.getElementById('startDate').value=state.startDate;
+  if(typeof state.walkFri==='boolean')document.getElementById('walkFri').checked=state.walkFri;
+  if(typeof state.walkSat==='boolean')document.getElementById('walkSat').checked=state.walkSat;
+  if(state.satMode==='all'||state.satMode==='range')document.getElementById('satMode').value=state.satMode;
+  if(typeof state.satFrom==='string'&&(!state.satFrom||datePattern.test(state.satFrom)))document.getElementById('satFrom').value=state.satFrom;
+  if(typeof state.satTo==='string'&&(!state.satTo||datePattern.test(state.satTo)))document.getElementById('satTo').value=state.satTo;
+  if(typeof state.dogMode==='boolean')document.getElementById('dogMode').checked=state.dogMode;
+  DAY_OVERRIDES.clear();
+  if(Array.isArray(state.dayOverrides))state.dayOverrides.forEach(entry=>{
+    if(Array.isArray(entry)&&datePattern.test(entry[0])&&typeof entry[1]==='boolean')DAY_OVERRIDES.set(entry[0],entry[1]);
+  });
+}
 function buildTimeline(){
   const sv=document.getElementById('startDate').value;
   const start = sv ? new Date(sv+'T00:00:00') : new Date('2026-10-11T00:00:00');
   const walkFri=document.getElementById('walkFri').checked;
   const walkSat=document.getElementById('walkSat').checked;
+  const satMode=document.getElementById('satMode').value;
+  const satFrom=document.getElementById('satFrom').value;
+  const satTo=document.getElementById('satTo').value;
   const dogMode=document.getElementById('dogMode').checked;
   const routes=DATA.filter(x=>x.isRoute).slice().sort((a,b)=>a.idx-b.idx);
   const items=[]; const cur=new Date(start); let i=0, guard=0;
   while(i<routes.length && guard++<4000){
     const dow=cur.getDay();                 // 0=Sun … 5=Fri 6=Sat
-    const rest=(dow===5&&!walkFri)||(dow===6&&!walkSat);
+    const rest=!isWalkingDay(cur,walkFri,walkSat,satMode,satFrom,satTo);
     if(rest){ items.push({kind:'rest',date:new Date(cur),dow}); }
     else{
       const p=Object.assign({},routes[i]);
@@ -319,7 +409,7 @@ function buildTimeline(){
         if(g.groc_day!=null)p.grocDay=g.groc_day;
         if(g.sleep_info!=null)p.sleep=g.sleep_info;
       }
-      p.date=fmt(cur); p.day=HEB_DOW[dow]; p.month=cur.getMonth()+1;
+      p.date=fmt(cur); p.day=HEB_DOW[dow]; p.month=cur.getMonth()+1; p.scheduleIso=isoDate(cur);
       items.push({kind:'route',date:new Date(cur),dow,p}); i++;
     }
     cur.setDate(cur.getDate()+1);
@@ -339,7 +429,8 @@ function grocDayBlock(list){
   return `<details class="resup"><summary>🛒 ציוד/קניות בקרבת המסלול (${list.length})</summary>${rows}</details>`;
 }
 function restRow2(it){
-  return `<div class="rest"><span class="d">יום ${HEB_DOW[it.dow]} ${fmt(it.date)}</span> יום מנוחה</div>`;
+  const dayToggle=`<button type="button" class="day-toggle walk" onclick="setDayWalk('${isoDate(it.date)}',true)">הפוך ליום הליכה</button>`;
+  return `<div class="rest"><span class="d">יום ${HEB_DOW[it.dow]} ${fmt(it.date)}</span> יום מנוחה ${dayToggle}</div>`;
 }
 function render(){
   const items=buildTimeline();
@@ -365,6 +456,7 @@ function render(){
   const regs=[...new Set(DATA.filter(x=>x.region).map(x=>x.region+'|'+x.hue))];
   document.getElementById('legend').innerHTML = regs.map(r=>{const[n,h]=r.split('|');
     return `<span><i class="dot" style="background:hsl(${h} 62% 48%)"></i>${esc(n)}</span>`}).join('');
+  saveScheduleState();
   spy();
 }
 function jump(id){const el=document.getElementById('m'+id); if(el)el.scrollIntoView({behavior:'smooth',block:'start'})}
@@ -404,6 +496,8 @@ function renderGroc(q){
   }).join('');
   document.getElementById('gbody').innerHTML = rows || `<tr><td colspan="7" style="text-align:center;padding:20px;color:var(--muted)">אין תוצאות</td></tr>`;
 }
+restoreScheduleState();
+updateSaturdayControls();
 render();
 renderGroc('');
 </script>
